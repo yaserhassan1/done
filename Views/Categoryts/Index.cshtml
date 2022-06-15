@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Market_Store.Models.Categoryt>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutAdminDashboard.cshtml";
+}
+  <head>
+        <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+        <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+    </head>
+<div class="container">
+    <h1>Index</h1>
+  
+    <p>
+        <a class="btn btn-primary" asp-controller="Userts" asp-action="Create">Create New</a>
+    </p>
+ 
+    <div class="row">
+        @foreach (var item in Model)
+        {
+
+            <div class="col">
+                <div class="card" style="width: 18rem;">
+                    <img src="~/Image/@item.Imagepath"  width="200" height="250" class=" img-profile" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Categoryname</h5>
+
+                        
+                            <a asp-action="Edit" asp-route-id="@item.Catid"><span class="material-icons">edit</span></a>
+                       
+                            <a asp-action="Details" asp-route-id="@item.Catid"><span class="material-icons">info</span></a>
+
+                       
+                            <a asp-action="Delete" asp-route-id="@item.Catid"><span class="material-icons">delete</span></a>
+                        
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="row"></div>
+        <div class="row"></div>
+        <div class="row"></div>
+    </div>
+   
+
+</div>
+

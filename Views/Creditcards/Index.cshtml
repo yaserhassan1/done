@@ -1,0 +1,73 @@
+﻿@model IEnumerable<Market_Store.Models.Creditcard>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Cardtype)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cardnumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Expdata)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cvv)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Modifieddate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Balance)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cardtype)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cardnumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Expdata)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cvv)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Modifieddate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Balance)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Creditcardid">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Creditcardid">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Creditcardid">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</body>
+</html>

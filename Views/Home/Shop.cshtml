@@ -1,0 +1,233 @@
+﻿@model IEnumerable<Market_Store.Models.Productt>
+@{
+    ViewData["Title"] = "Shop";
+    Layout = "~/Views/Shared/_LayoutHomePanel.cshtml";
+}
+<div class="collection-header">
+    <div class="collection-hero">
+        <div class="collection-hero__image">
+            <img class="blur-up lazyload"
+                 data-src="assets/images/cat-women.jpg" src="assets/images/cat-women.jpg" alt="Women"
+                 title="Women" />
+        </div>
+        <div class="collection-hero__title-wrapper">
+            <h1 class="collection-hero__title page-width">Shop </h1>
+        </div>
+    </div>
+</div>
+<!--End Collection Banner-->
+
+<div class="container">
+    <div class="row">
+        <!--Sidebar-->
+        <div class="col-12 col-sm-12 col-md-3 col-lg-3 sidebar filterbar">
+            <div class="closeFilter d-block d-md-none d-lg-none">
+                <i class="icon icon anm anm-times-l"></i>
+            </div>
+            <div class="sidebar_tags">
+                <!--Categories-->
+                <div class="sidebar_widget categories filter-widget">
+                    <div class="widget-title">
+                        <h2>Categories</h2>
+                    </div>
+                    <div class="widget-content">
+                        <ul class="sidebar_categories">
+                            <li>1</li>
+                            <li>2</li>
+                            <li>3</li>
+                        </ul>
+                    </div>
+                </div>
+                <!--Categories-->
+                <!--Price Filter-->
+                <!--Brand-->
+                <!--End Brand-->
+                <!--Popular Products-->
+                <!--End Popular Products-->
+
+
+            </div>
+        </div>
+        <!--End Sidebar-->
+        <!--Main Content-->
+        <div class="col-12 col-sm-12 col-md-9 col-lg-9 main-col">
+
+            <hr>
+            <div class="productList product-load-more">
+                <!--Toolbar-->
+                <button type="button" class="btn btn-filter d-block d-md-none d-lg-none">
+                    Product
+                    Filters
+                </button>
+                <div class="toolbar">
+                    <div class="filters-toolbar-wrapper">
+                        <div class="row">
+                            <div class="col-4 col-md-4 col-lg-4 filters-toolbar__item collection-view-as d-flex justify-content-start align-items-center">
+                                <a href="shop-left-sidebar.html" title="Grid View"
+                                   class="change-view change-view--active">
+                                    <img src="assets/images/grid.jpg" alt="Grid" />
+                                </a>
+                                <a href="shop-listview.html" title="List View" class="change-view">
+                                    <img src="assets/images/list.jpg" alt="List" />
+                                </a>
+                            </div>
+                            <div class="col-4 col-md-4 col-lg-4 text-center filters-toolbar__item filters-toolbar__item--count d-flex justify-content-center align-items-center">
+                                <span class="filters-toolbar__product-count">Showing: 22</span>
+                            </div>
+                            <div class="col-4 col-md-4 col-lg-4 text-right">
+                                <div class="filters-toolbar__item">
+                                    <label for="SortBy" class="hidden">Sort</label>
+                                    <select name="SortBy" id="SortBy"
+                                            class="filters-toolbar__input filters-toolbar__input--sort">
+                                        <option value="title-ascending" selected="selected">Sort</option>
+                                        <option>Best Selling</option>
+                                        <option>Alphabetically, A-Z</option>
+                                        <option>Alphabetically, Z-A</option>
+                                        <option>Price, low to high</option>
+                                        <option>Price, high to low</option>
+                                        <option>Date, new to old</option>
+                                        <option>Date, old to new</option>
+                                    </select>
+                                    <input class="collection-header__default-sort" type="hidden"
+                                           value="manual">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!--End Toolbar-->
+                <div class="grid-products grid--view-items">
+                    <div class="row">
+                        @foreach (var item in Model)
+                        {
+                            <div class="col-6 col-sm-6 col-md-4 col-lg-3 item">
+                                <!-- start product image -->
+
+                                <div class="product-image">
+                                    <!-- start product image -->
+                                    <a href="#">
+                                        <!-- image -->
+                                        <img class="primary blur-up lazyload"
+                                             data-src="/Image/@item.Imagepath" src="/Image/@item.Imagepath"
+                                             title="product">
+                                        <!-- End image -->
+                                        <!-- Hover image -->
+                                        <img class="hover blur-up lazyload"
+                                             data-src="/Image/@item.Imagepath" src="/Image/@item.Imagepath"
+                                             title="product">
+                                        <!-- End hover image -->
+                                        <!-- product label -->
+                                        <!-- End product label -->
+                                    </a>
+                                    <!-- end product image -->
+                                    <!-- countdown start -->
+                                    <!-- countdown end -->
+                                    <!-- Start product button -->
+
+
+                                    <button class="btn btn-addto-cart" onclick="AddCart(@item.Prodid)" type="button">Add Cart</button>
+
+
+                                    <!-- end product button -->
+                                </div>
+
+
+                                <!-- end product image -->
+                                <!--start product details -->
+                                <div class="product-details text-center">
+                                    <!-- product name -->
+                                    <div class="product-name">
+                                        <a href="#">@item.Productname</a>
+                                    </div>
+                                    <!-- End product name -->
+                                    <!-- product price -->
+                                    <div class="product-price">
+                                        <span class="old-price">$@item.Price</span>
+                                        <span class="price">$@(string.Format("{0:N2}",Convert.ToDouble(item.Price)- Convert.ToDouble(item.Price)*(20/100)))</span>
+                                    </div>
+                                    <!-- End product price -->
+
+
+                                </div>
+                                <!-- End product details -->
+                                <!-- countdown end -->
+                            </div>
+
+
+                        }
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="infinitpaginOuter">
+                <div class="infinitpagin">
+                    <a href="#" class="btn loadMore">Load More</a>
+                </div>
+            </div>
+        </div>
+        <!--End Main Content-->
+    </div>
+</div>
+
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- MDB -->
+
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.js"></script>
+
+<script>
+
+
+
+
+
+
+
+
+
+    function AddCart(prodid) {
+
+        let id = prodid;
+        console.log(id);
+        $.ajax({
+            url: "/Home/AddCart",
+            type: "POST",
+            data: { Productid: id },
+            success: function (data) {
+
+                if (data == 0) {
+                    Swal.fire({
+                       
+                        text: "You must be logged in to be able to add this item",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes,go Login'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = "/LoginRegisteration/Login";
+                        }
+                    })
+
+                }
+                else {
+                    console.log(data);
+                    Swal.fire(
+                        'Added successfully!',
+                        'You clicked the button!',
+                        'success'
+                    )
+
+                }
+
+
+
+            }
+        })
+    }
+</script>
+

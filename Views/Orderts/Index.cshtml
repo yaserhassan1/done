@@ -1,0 +1,79 @@
+﻿@model IEnumerable<Market_Store.Models.Ordert>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutAdminDashboard.cshtml";
+}
+
+<div class="container">
+    <h1>Index</h1>
+
+    <p>
+        <a class="btn btn-primary" asp-controller="Userts" asp-action="Create">Create New</a>
+    </p>
+    <table id="table" class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Codename)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Prod.Productname)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.User.Username)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Datecreated)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Quantity)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DateFrom)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DateTo)
+                </th>
+
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Codename)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Prod.Productname)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.User.Username)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Datecreated)
+                    </td>
+                    <td>
+                        @Convert.ToInt32(item.Quantity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateFrom)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateTo)
+                    </td>
+
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Orderid">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Orderid">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Orderid">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+</div>

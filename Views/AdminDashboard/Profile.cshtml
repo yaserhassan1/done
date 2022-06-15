@@ -1,0 +1,431 @@
+﻿@model Market_Store.Models.Usert
+
+@{
+    ViewData["Title"] = "Profile";
+    Layout = "~/Views/Shared/_LayoutAdminDashboard.cshtml";
+    
+
+   
+
+}
+<link href="~/AdminDashboard/cssProfile/StyleSheet.css" rel="stylesheet" />
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+<div class="container">
+    <h1>Profile</h1>
+    <form  enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Userid" />
+        <div class="row gutters">
+            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="account-settings">
+                            <div class="user-profile">
+                                <div class="user-avatar">
+                                    <img src="~/Image/@Html.DisplayFor(model=> model.Imagepath)"  width="100" height="100" alt="Maxwell Admin">
+                                </div>
+                                <h5 class="user-name">@Html.DisplayFor(model => model.Username)</h5>
+                                <h6 class="user-email">@Html.DisplayFor(model => model.Email)</h6>
+
+                            </div>
+                            <hr />
+                            <div>
+                                <label class="form-label" for="customFile">Upload File Image </label>
+                                <input type="file" asp-for="ImageFile" class="form-control" id="imageFile" accept="Image/*" />
+
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+                <div class="card h-65">
+                    <div class="card-body">
+                        <div class="row gutters">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <h6 class="mb-2 text-primary">Personal Details</h6>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+
+                                <div class="form-group">
+                                    <label asp-for="Fullname"></label>
+                                    <input type="text" asp-for="Fullname" class="form-control" id="fullName">
+                                    <span asp-validation-for="Fullname" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label asp-for="Phonenumber"></label>
+                                    <input asp-for="Phonenumber" class="form-control" id="phone">
+                                    <span asp-validation-for="Phonenumber" class="text-danger"></span>
+                                </div>
+                            </div>
+
+
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label asp-for="Barthday"></label>
+                                    <input type="date" asp-for="Barthday" class="form-control" id="barthday">
+                                </div>
+                            </div>
+
+
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label asp-for="Gender" class="control-label"></label>
+                                    <select asp-for="Gender" class="form-control" name="gender">
+                                        <option>Male</option>
+                                        <option>Female</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row gutters">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <h6 class="mt-3 mb-2 text-primary">Security Details</h6>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label asp-for="Username"></label>
+                                    <input asp-for="Username" class="form-control" id="username"  onchange="IsUsernameExist()">
+                                    <span asp-validation-for="Username" class="text-danger"></span>
+                                    <p id="checkUsername"></p>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+								<div class="form-group">
+									<label asp-for="Email"></label>
+									<input asp-for="Email" class="form-control" id="email" onchange="IsEmailExist()">
+									<span asp-validation-for="Email" class="text-danger"></span>
+									<p id="checkEmail"></p>
+
+								</div>
+                            </div>
+
+
+                        </div>
+
+                        <div class="row gutters">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <div class="text-right">
+                                    <button type="reset" id="submit" name="submit" class="btn btn-secondary">Cancel</button>
+                                    <input  class="btn btn-primary" onclick="UpdateProfile()" value="Update">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card h-30">
+                    <div class="card-body">
+                        <div class="row gutters">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <h6 class="mb-2 text-primary">Change your Password</h6>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label asp-for="Password"></label>
+                                    <input type="password" asp-for="Password" name="password" class="form-control" id="password" onchange="IsMatch()">
+                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label for="confirmPassword">Confirm Password</label>
+                                    <input name="confirmPassword" id="confirmPassword" class="form-control" onchange="IsMatch()">
+                                    <span type="password" asp-validation-for="Password" class="text-danger"></span>
+                                    <p id="messMatch"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row gutters">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <div class="text-right">
+                                    <input  name="submit" class="btn btn-primary" value="Change Password"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </form>
+
+</div>
+
+@*<script type="text/javascript" src="~/js/myJs_site.js"></script>*@
+
+<script>
+
+
+
+
+	//Confirm Passwords if it Match!
+	function IsMatch() {
+
+
+		var pass = document.getElementById("password").value;
+		var comPass = document.getElementById("confirmPassword").value
+
+		console.log(pass);
+		console.log(comPass);
+
+		if (pass == comPass) {
+
+			document.getElementById("messMatch").innerHTML = "Passwords  match!";
+			document.getElementById("messMatch").style.color = "Green";
+
+
+
+
+		}
+		else {
+
+			document.getElementById("messMatch").style.color = "Red";
+			document.getElementById("messMatch").innerHTML = "Passwords do NOT match!";
+
+
+
+		}
+
+	}
+
+
+
+
+
+
+	//Check if Username is Exist
+	function IsUsernameExist() {
+
+		document.getElementById("checkUsername").innerHTML = "Checking......";
+
+		var username = document.getElementById("username").value;
+
+		if (username == null) {
+			document.getElementById("checkUsername").innerHTML = "";
+		}
+
+		console.log(username);
+		$.ajax({
+
+			url: "/LoginRegisteration/IsUsernameExist",
+			type: "POST",
+			data: { username: username },
+			success: function (data) {
+
+				console.log(data);
+				if (data == 1) {
+					document.getElementById("checkUsername").innerHTML = "The Username is Exist";
+					document.getElementById("checkUsername").style.color = "Red";
+					document.getElementById("username").style.borderColor = "Red";
+				}
+				else {
+
+					document.getElementById("checkUsername").innerHTML = "The Username is Available";
+					document.getElementById("checkUsername").style.color = "Green";
+					document.getElementById("username").style.borderColor = "Green";
+
+				}
+			}
+
+
+		})
+
+	}
+
+
+	//Check if Email is Exist
+	function IsEmailExist() {
+
+		document.getElementById("checkEmail").innerHTML = "Checking......";
+
+		var email = document.getElementById("email").value;
+
+		if (email == null) {
+			document.getElementById("checkEmail").innerHTML = "";
+		}
+
+		console.log(email);
+
+		$.ajax({
+
+			url: "/LoginRegisteration/IsEmailExist",
+			type: "POST",
+			data: { email: email },
+			success: function (data) {
+
+				console.log(data);
+				if (data == 1) {
+					document.getElementById("checkEmail").innerHTML = "The Emial is Exist";
+					document.getElementById("checkEmail").style.color = "Red";
+					document.getElementById("email").style.borderColor = "Red";
+				}
+				else {
+
+					document.getElementById("checkEmail").innerHTML = "The Emial is Available";
+					document.getElementById("checkEmail").style.color = "Green";
+					document.getElementById("email").style.borderColor = "Green";
+
+				}
+			}
+
+
+		})
+
+
+	}
+
+
+
+
+
+
+    function UpdateProfile()
+    {
+        //Input Value
+        var fullname = document.getElementById("fullName").value;
+        var phone = document.getElementById("phone").value;
+        var barthday = document.getElementById("barthday").value;
+        var gender = document.getElementById("gender").value;
+        var username = document.getElementById("username").value;
+        var email = document.getElementById("email").value;
+      /*  var password = document.getElementById("password").value;*/
+        var imageFile = document.getElementById("imageFile").value;
+
+
+
+
+        //Js Object
+        var register = new Object()
+
+        register.Fullname = fullname;
+        register.Email = email;
+        register.Username = username;
+        register.Phonenumber = phone;
+        register.Barthday = barthday;
+        register.ImageFile = imageFile;
+        register.Gender = gender;
+
+
+
+
+
+        console.log(register);
+
+        //$.ajax({
+        //    url: "/AdminDashboard/Profile",
+        //    type: "POST",
+        //    data: { register: register },
+        //    success: function(data) {
+
+        //        console.log(data);
+
+
+
+
+        //            //window.location.href = data.actionLink;
+
+
+        //    }
+
+
+        //})
+
+
+    }
+
+
+
+
+
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+@*<form asp-controller="Userts" asp-action="Create" enctype="multipart/form-data">*@
+@*<div class="form-group">
+        <label asp-for="ImageFile" class="control-label"></label>
+        <input asp-for="ImageFile" class="form-control" />
+        <span asp-validation-for="ImageFile" class="text-danger"></span>
+    </div>
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="Fullname" class="control-label"></label>
+        <input asp-for="Fullname" class="form-control" />
+        <span asp-validation-for="Fullname" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Username" class="control-label"></label>
+        <input asp-for="Username" class="form-control" />
+        <span asp-validation-for="Username" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+
+        <label asp-for="Password" class="control-label"></label>
+        <input asp-for="Password" class="form-control" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Email" class="control-label"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Barthday" class="control-label"></label>
+        <input asp-for="Barthday" class="form-control" />
+        <span asp-validation-for="Barthday" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Phonenumber">Enter a phone number:</label><br><br>
+        <input type="tel" id="phone" asp-for="Phonenumber">
+        <span asp-validation-for="Phonenumber" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Gender" class="control-label"></label>
+        <select asp-for="Gender" class="form-control">
+            <option>Male</option>
+            <option>Female</option>
+        </select>
+    </div>*@
+
+@*/////////////////////////////////////////////////////////////////////////////
+    @*<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+            <div class="form-group">
+                <label for="ciTy">City</label>
+                <input type="name" class="form-control" id="ciTy" placeholder="Enter City">
+            </div>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+            <div class="form-group">
+                <label for="sTate">State</label>
+                <input type="text" class="form-control" id="sTate" placeholder="Enter State">
+            </div>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+            <div class="form-group">
+                <label for="zIp">Zip Code</label>
+                <input type="text" class="form-control" id="zIp" placeholder="Zip Code">
+            </div>
+        </div>*@
+
+

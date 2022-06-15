@@ -1,0 +1,103 @@
+﻿@model Market_Store.Models.Usert
+@{
+    ViewData["Title"] = "Reg";
+    Layout = "~/Views/Shared/_LayoutHomePanel.cshtml";
+}
+
+<h1>Reg</h1>
+
+<!--Body Content-->
+<div id="page-content">
+    <!--Page Title-->
+    <div class="page section-header text-center">
+        <div class="page-title">
+            <div class="wrapper"><h1 class="page-width">Create an Account</h1></div>
+        </div>
+    </div>
+    <!--End Page Title-->
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 main-col offset-md-3">
+                <div class="mb-4">
+                      <form asp-action="Register" asp-controller="LoginRegisteration" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label asp-for="ImageFile" class="control-label"></label>
+                            <input asp-for="ImageFile" class="form-control" />
+                            <span asp-validation-for="ImageFile" class="text-danger"></span>
+                        </div>
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="Fullname" class="control-label"></label>
+                            <input asp-for="Fullname" class="form-control" />
+                            <span asp-validation-for="Fullname" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Username" class="control-label"></label>
+                            <input asp-for="Username" id="Username"  class="form-control" />
+                            <span asp-validation-for="Username" class="text-danger"></span>
+                            <p id="check"></p>
+                        </div>
+                        <div class="form-group">
+
+                            <label asp-for="Password" class="control-label"></label>
+                            <input asp-for="Password" class="form-control" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Email" class="control-label"></label>
+                            <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Barthday" class="control-label"></label>
+                            <input asp-for="Barthday" class="form-control" />
+                            <span asp-validation-for="Barthday" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Phonenumber">Enter a phone number:</label><br><br>
+                            <input type="tel" id="phone" asp-for="Phonenumber">
+                            <span asp-validation-for="Phonenumber" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Gender" class="control-label"></label>
+                            <select asp-for="Gender" class="form-control">
+                                <option>Male</option>
+                                <option>Female</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="submit" value="Create" class="btn btn-primary" />
+                        </div>
+                    </form>
+                  
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End Body Content-->
+<script>
+
+    function IsMatch() {
+
+        var pass1 = document.getElementById("password").Value;
+
+        var pass2 = document.getElementById("comPassword").Value;
+
+
+        if (pass1 == pass2) {
+            document.getElementById("match").innerHTML = "The Password is not Matching";
+            document.getElementById("match").style.color = "red";
+        }
+        else{
+             document.getElementById("match").innerHTML = "The Password is  Matching";
+             document.getElementById("match").style.color = "Green";
+
+            }
+
+
+    }
+
+</script>

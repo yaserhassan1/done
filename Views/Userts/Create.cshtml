@@ -1,0 +1,83 @@
+﻿@model Market_Store.Models.Usert
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_LayoutAdminDashboard.cshtml";
+}
+
+
+
+<div class="container">
+    <h1>Create</h1>
+
+    <h4>User</h4>
+    <hr />
+    <fieldset>
+        <div class="row flex-column">
+            <div class="col-md-6">
+                <div>
+
+                    <form asp-controller="Userts" asp-action="Create" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label asp-for="ImageFile" class="control-label"></label>
+                            <input asp-for="ImageFile" class="form-control" accept="Image/*" />
+                            <span asp-validation-for="ImageFile" class="text-danger"></span>
+                        </div>
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="Fullname" class="control-label"></label>
+                            <input asp-for="Fullname" class="form-control" />
+                            <span asp-validation-for="Fullname" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Username" class="control-label"></label>
+                            <input asp-for="Username" id="username"  class="form-control" onchange="IsUsernameExist()"/>
+                            <span asp-validation-for="Username" class="text-danger"></span>
+                            <p id="checkUsername"></p>
+                        </div>
+                        <div class="form-group">
+
+                            <label asp-for="Password" class="control-label"></label>
+                            <input asp-for="Password" class="form-control" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+						<div class="form-group">
+							<label asp-for="Email" class="control-label"></label>
+							<input asp-for="Email" class="form-control" id="email" onchange="IsEmailExist()" />
+							<span asp-validation-for="Email" class="text-danger" ></span>
+							<p id="checkEmail"></p>
+						</div>
+                        <div class="form-group">
+                            <label asp-for="Barthday" class="control-label"></label>
+                            <input asp-for="Barthday" class="form-control" />
+                            <span asp-validation-for="Barthday" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Phonenumber">Enter a phone number:</label><br><br>
+                            <input type="tel" id="phone" asp-for="Phonenumber">
+                            <span asp-validation-for="Phonenumber" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Gender" class="control-label"></label>
+                            <select asp-for="Gender" class="form-control">
+                                <option>Male</option>
+                                <option>Female</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="submit" value="Create" class="btn btn-primary" onclick="isv()"/>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <a asp-action="Index">Back to List</a>
+        </div>
+    </fieldset>
+
+</div>
+<script type="text/javascript" src="~/js/myJs_site.js"></script>

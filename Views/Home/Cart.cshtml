@@ -1,0 +1,231 @@
+﻿@model IEnumerable<Market_Store.Models.Cartt>
+@{
+    ViewData["Title"] = "Cart";
+    Layout = "~/Views/Shared/_LayoutHomePanel.cshtml";
+
+}
+
+<div id="page-content">
+    <!--Page Title-->
+    <div class="page section-header text-center">
+        <div class="page-title">
+            <div class="wrapper"><h1 class="page-width">Your cart</h1></div>
+        </div>
+    </div>
+    <!--End Page Title-->
+
+    <div class="container">
+        <div class="row">
+
+            <div class="responsive col-12 col-sm-12 col-md-8 col-lg-8 main-col">
+                <table class="table">
+                    <thead class="cart__row cart__header">
+                        <tr>
+                            <th colspan="2" class="text-center">Product</th>
+                            <th class="text-center">Price</th>
+                            <th class="text-center">Quantity</th>
+                            <th class="text-right">Total</th>
+                            <th class="action">&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+
+                        @foreach (var item in Model)
+                        {
+                            <tr class="cart__row border-bottom line1 cart-flex border-top">
+                                <td class="cart__image-wrapper cart-flex-item">
+                                    <a href="#"><img class="cart__image" src="/Image/@item.Product.Imagepath" alt="Elastic Waist Dress - Navy / Small"></a>
+                                </td>
+                                <td class="cart__meta small--text-left cart-flex-item">
+                                    <div class="list-view-item__title">
+                                        <a href="#">@item.Product.Productname</a>
+                                    </div>
+
+                                    <div class="cart__meta-text">
+                                        Color: Navy<br>Size: Small<br>
+                                    </div>
+                                </td>
+                                <td class="cart__price-wrapper cart-flex-item">
+                                   <span class="price">@item.Product.Price</span>
+                                   <input hidden class="cartid" value="@item.CartId"/>
+                                </td>
+                               
+                                <td class="cart__update-wrapper cart-flex-item text-right">
+                                    <div class="text-center">
+                                        <div class="number">
+                                            <input class="qty" type="number"  name="updates[]" onchange="getPrice()"  min="1" value="1" pattern="[0-9]*">
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="text-right small--hide cart-price">
+                                    <div><span class="cartprice"></span></div>
+
+                                </td>
+                                <td class="text-center small--hide">
+
+                                    <button type="submit" class="btn btn--secondary cart__remove" onclick="DeleteItem(@item.CartId)" title="Remove tem"><i class="icon icon anm anm-times-l"></i></button>
+
+                                </td>
+                            </tr>
+
+                        }
+
+
+
+
+
+
+
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3" class="text-left"><a asp-action="Index" asp-controller="Home" class="btn--link cart-continue"><i class="icon icon-arrow-circle-left"></i> Continue shopping</a></td>
+                            <td colspan="3" class="text-right"><button type="submit" name="update" class="btn--link cart-update"><i class="fa fa-refresh"></i> Update</button></td>
+                        </tr>
+                    </tfoot>
+                </table>
+
+                <div class="col-12 col-sm-12 col-md-12 actionRow text-center">
+                    <div><input type="button" class="btn btn--secondary get-rates" onclick="UpdateQty()"*@ value="Update Quantites"></div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-4 col-lg-4 cart__footer">
+                <div class="cart-note">
+                    <div class="solid-border">
+                        <h5><label for="CartSpecialInstructions" class="cart-note__label small--text-center">Add a note to your order</label></h5>
+                        <textarea name="note" id="CartSpecialInstructions" class="cart-note__input"></textarea>
+                    </div>
+                  
+                </div>
+                <div class="solid-border">
+                    <div class="row">
+                        <span class="col-12 col-sm-6 cart__subtotal-title " id="totalofsum"><strong>Subtotal</strong></span>
+                        <span class="col-12 col-sm-6 cart__subtotal-title cart__subtotal text-right"><span class="money" id="totalofsum"> </span></span>
+                    </div>
+                    <div class="cart__shipping">Shipping &amp; taxes calculated at checkout</div>
+                    <p class="cart_tearm">
+                        <label>
+                            <input type="checkbox" name="tearm" id="cartTearm" class="checkbox" value="tearm" required="">
+                            I agree with the terms and conditions
+                        </label>
+                    </p>
+                    <form asp-action="Checkout" asp-controller="Home">
+
+
+                        <input type="submit" name="checkout" id="cartCheckout" class="btn btn--small-wide checkout" value="Checkout">
+                        <div class="paymnet-img"><img src="/HomePanel/assets/images/payment-img.jpg" alt="Payment"></div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+<!--End Body Content-->
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+
+    
+    function DeleteItem(cartid) {
+
+        let id = cartid;
+        console.log(id);
+        $.ajax({
+            url: "/Cartts/DeleteItem",
+            type: "POST",
+            data: { cartid: id },
+            success: function (data) {
+
+
+                window.location.href = data.link;
+
+
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    }
+
+
+
+
+
+
+
+
+
+     
+
+    
+    function getPrice() {
+
+
+       
+            var sumAllProduct = 0
+            const quantites = document.getElementsByClassName('qty');
+            const prices = document.getElementsByClassName('price');
+            const eachPrice = document.getElementsByClassName('cartprice');
+            document.getElementById('totalofsum').innerText = sumAllProduct + "$";
+
+                
+            
+            
+            
+        for (var i = 0; i < quantites.length; i++) {
+            sumAllProduct += Number(prices[i].innerText) * Number(quantites[i].value);
+            eachPrice[i].innerText = Number(prices[i].innerText) * Number(quantites[i].value) + "$";
+        }
+
+            document.getElementById('totalofsum').innerText = sumAllProduct + "$";
+            document.getElementsByClassName('cartprice') = eachPrice;
+        
+         
+           
+        
+    }
+
+
+    function UpdateQty() {
+        const quantites = document.getElementsByClassName('qty');
+        const cartid = document.getElementsByClassName('cartid');
+
+        for (var i = 0; i < quantites.length; i++) {
+
+
+            var id = cartid[i].value;
+            var qty = quantites[i].value;
+
+            $.ajax({
+                url: "/Cartts/Updateqty",
+                type: "POST",
+                data: { cartid: id, quantity: qty },
+                success: function (data) {
+
+
+                    console.log(data);
+
+
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        }
+        
+    }
+
+    
+
+   
+   
+       
+    
+</script>

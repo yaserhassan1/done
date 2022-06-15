@@ -1,0 +1,45 @@
+﻿@model Market_Store.Models.Categoryt
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_LayoutAdminDashboard.cshtml";
+}
+
+<div class="container">
+
+
+	<h1>Delete</h1>
+	<div>
+		<h4>Categoryt</h4>
+		<hr />
+
+		<dl class="row">
+			<dt class="col-sm-6">
+				@Html.DisplayNameFor(model => model.Categoryname)
+			</dt>
+			<dd class="col-sm-6">
+				<h3>@Html.DisplayFor(model => model.Categoryname)</h3>
+			</dd>
+			<dt class="col-sm-6">
+				@Html.DisplayNameFor(model => model.Datecreated)
+			</dt>
+			<dd class="col-sm-6">
+				@Html.DisplayFor(model => model.Datecreated)
+			</dd>
+			<dt class="col-sm-6">
+				Image
+			</dt>
+			<dd class="col-sm-6">
+				<img class="img-fluid" src="~/Image/@Html.DisplayFor(model => model.Imagepath)" />
+			</dd>
+
+
+		</dl>
+
+		<form asp-action="Delete">
+			<input type="hidden" asp-for="Catid" />
+			<input type="submit" value="Delete" class="btn btn-danger" /> 
+			<a asp-action="Index"><span class="material-icons">arrow_back</span></a>
+		</form>
+	</div>
+</div>

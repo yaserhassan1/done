@@ -1,0 +1,488 @@
+﻿@model Tuple<
+                            IEnumerable<Market_Store.Models.Categoryt>,
+                            IEnumerable<Market_Store.Models.Productt>,
+                            IEnumerable<Market_Store.Models.Productt>,
+                            IEnumerable<Market_Store.Models.Productt>,
+                            IEnumerable<Market_Store.Models.Productt>,
+                            IEnumerable<Market_Store.Models.Testimonial>,
+                            IEnumerable<Market_Store.Models.Service>>
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_LayoutHomePanel.cshtml";
+
+    double descount = 20.0;
+
+    string username = ViewBag.Username;
+
+
+}
+
+
+<!--Body Content-->
+<div id="page-content">
+    <!--Home slider-->
+    <div class="slideshow slideshow-wrapper pb-section sliderFull">
+        <div class="home-slideshow">
+            <div class="slide">
+                <div class="blur-up lazyload bg-size">
+                    <img class="blur-up lazyload bg-img" data-src="C:\Users\DELL\Pictures\Backgrounds\220764.jpg" src="C:\Users\DELL\Pictures\Backgrounds\220764.jpg" alt="Shop Our New Collection" title="Shop Our New Collection" />
+                    <div class="slideshow__text-wrap slideshow__overlay classic bottom">
+                        <div class="slideshow__text-content bottom">
+                            <div class="wrap-caption center">
+                                <h2 class="h1 mega-title slideshow__title">Shop Our New Collection</h2>
+                                <span class="mega-subtitle slideshow__subtitle">From Hight to low, classic or modern. We have you covered</span>
+                                <span class="btn">Shop now</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide">
+                <div class="blur-up lazyload bg-size">
+                    <img class="blur-up lazyload bg-img" data-src="C:\Users\DELL\Pictures\Backgrounds\220764.jpg" src="C:\Users\DELL\Pictures\Backgrounds\220764.jpg" alt="Summer Bikini Collection" title="Summer Bikini Collection" />
+                    <div class="slideshow__text-wrap slideshow__overlay classic bottom">
+                        <div class="slideshow__text-content bottom">
+                            <div class="wrap-caption center">
+                                <h2 class="h1 mega-title slideshow__title">Summer Bikini Collection</h2>
+                                <span class="mega-subtitle slideshow__subtitle">Save up to 50% off this weekend only</span>
+                                <span class="btn">Shop now</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--End Home slider-->
+    <!--Collection Box slider-->
+    <div class="collection-box section">
+        <div class="container-fluid">
+            <div class="section-header text-center">
+                <h2 class="h2">Category</h2>
+                <p>Browse by category</p>
+            </div>
+
+            <div class="collection-grid">
+
+                @foreach (var item in Model.Item1)
+                {
+                    <div class="collection-grid-item">
+                        <a href="collection-page.html" class="collection-grid-item__link">
+                            <img data-src="/Image/@item.Imagepath" src="/Image/@item.Imagepath" alt="Fashion" class="blur-up lazyload" width="200" height="400" />
+                            <div class="collection-grid-item__title-wrapper">
+                                <h3 class="collection-grid-item__title btn btn--secondary no-border">@item.Categoryname</h3>
+                            </div>
+                        </a>
+                    </div>
+                }
+
+            </div>
+        </div>
+        <!--End Collection Box slider-->
+        <!--Collection Tab slider-->
+        <div class="tab-slider-product section">
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="section-header text-center">
+                            <h2 class="h2">New Arrivals</h2>
+                            <p>Browse the huge variety of our products</p>
+                        </div>
+                        <div class="tabs-listing">
+                            <ul class="tabs clearfix">
+                                <li class="active" rel="tab1">Clothing</li>
+                                <li rel="tab2">Perfume</li>
+                                <li rel="tab3">accessory</li>
+                            </ul>
+                            <div class="tab_container">
+                                <div id="tab1" class="tab_content grid-products">
+                                    <div class="productSlider">
+                                        @foreach (var item in Model.Item2)
+                                        {
+                                            <div class="col-12 item">
+                                                <!-- start product image -->
+                                                <div class="product-image">
+                                                    <!-- start product image -->
+                                                    <a href="#">
+                                                        <!-- image -->
+                                                        <img class="primary blur-up lazyload" data-src="/Image/@item.Imagepath" src="/Image/@item.Imagepath" alt="image" title="product">
+                                                        <!-- End image -->
+                                                        <!-- Hover image -->
+                                                        <img class="hover blur-up lazyload" data-src="/Image/@item.Imagepath" src="/Image/@item.Imagepath">
+                                                        <!-- End hover image -->
+                                                        <!-- product label -->
+                                                        <div class="product-labels rectangular"><span class="lbl on-sale">-@descount%</span> <span class="lbl pr-label1">new</span></div>
+                                                        <!-- End product label -->
+                                                    </a>
+                                                    <!-- end product image -->
+                                                    <!-- countdown start -->
+                                                 
+                                                    <!-- countdown end -->
+                                                    <!-- Start product button -->
+                                                   
+                                                    <div class="variants add">
+                                                        <button class="btn btn-addto-cart" type="button" onclick="AddCart(@item.Prodid)" tabindex="0">Add To Cart</button>
+
+                                                    </div>
+                                                  
+                                                 
+                                               
+                                                </div>
+                                                <!-- end product image -->
+                                                <!--start product details -->
+                                                <div class="product-details text-center">
+                                                    <!-- product name -->
+                                                    <div class="product-name">
+                                                        <a href="#">@item.Productname</a>
+                                                    </div>
+                                                    <!-- End product name -->
+                                                    <!-- product price -->
+                                                    <div class="product-price">
+                                                        <span class="old-price">$@item.Price</span>
+                                                        <span class="price">$@(string.Format("{0:N2}",Convert.ToDouble(item.Price)- Convert.ToDouble(item.Price)*(descount/100)))</span>
+                                                    </div>
+                                                    <!-- End product price -->
+
+                                                   
+
+                                                    <!-- End Variant -->
+                                                </div>
+                                                <!-- End product details -->
+                                            </div>
+
+                                        }
+
+                                    </div>
+                                </div>
+                                <div id="tab2" class="tab_content grid-products">
+                                    <div class="productSlider">
+                                        @foreach (var item in Model.Item3)
+                                        {
+                                            <div class="col-12 item">
+                                                <!-- start product image -->
+                                                <div class="product-image">
+                                                    <!-- start product image -->
+                                                    <a href="#">
+                                                        <!-- image -->
+                                                        <img class="primary blur-up lazyload" data-src="/Image/@item.Imagepath" src="/Image/@item.Imagepath" alt="image" title="product">
+                                                        <!-- End image -->
+                                                        <!-- Hover image -->
+                                                        <img class="hover blur-up lazyload" data-src="/Image/@item.Imagepath" src="/Image/@item.Imagepath">
+                                                        <!-- End hover image -->
+                                                        <!-- product label -->
+                                                        <div class="product-labels rectangular"><span class="lbl on-sale">-@descount%</span> <span class="lbl pr-label1">new</span></div>
+                                                        <!-- End product label -->
+                                                    </a>
+                                                    <!-- end product image -->
+                                                    <!-- countdown start -->
+                                                
+                                                    <!-- countdown end -->
+                                                    <!-- Start product button -->
+                                                 
+                                                    <div class="variants add">
+                                                        <button class="btn btn-addto-cart" type="button" onclick="AddCart(@item.Prodid)" tabindex="0">Add To Cart</button>
+
+                                                    </div>
+                                             
+                                          
+                                                </div>
+                                                <!-- end product image -->
+                                                <!--start product details -->
+                                                <div class="product-details text-center">
+                                                    <!-- product name -->
+                                                    <div class="product-name">
+                                                        <a href="#">@item.Productname</a>
+                                                    </div>
+                                                    <!-- End product name -->
+                                                    <!-- product price -->
+                                                    <div class="product-price">
+                                                        <span class="old-price">$@item.Price</span>
+                                                        <span class="price">$@(string.Format("{0:N2}",Convert.ToDouble(item.Price)- Convert.ToDouble(item.Price)*(descount/100)))</span>
+                                                    </div>
+                                                    <!-- End product price -->
+
+                                                    <div class="product-review">
+                                                        <i class="font-13 fa fa-star"></i>
+                                                        <i class="font-13 fa fa-star"></i>
+                                                        <i class="font-13 fa fa-star"></i>
+                                                        <i class="font-13 fa fa-star-o"></i>
+                                                        <i class="font-13 fa fa-star-o"></i>
+                                                    </div>
+
+                                                    <!-- End Variant -->
+                                                </div>
+                                                <!-- End product details -->
+                                            </div>
+
+                                        }
+
+                                    </div>
+                                </div>
+                                <div id="tab3" class="tab_content grid-products">
+                                    <div class="productSlider">
+                                        @foreach (var item in Model.Item4)
+                                        {
+                                            <div class="col-12 item">
+                                                <!-- start product image -->
+                                                <div class="product-image">
+                                                    <!-- start product image -->
+                                                    <a href="#">
+                                                        <!-- image -->
+                                                        <img class="primary blur-up lazyload" data-src="/Image/@item.Imagepath" src="/Image/@item.Imagepath" alt="image" title="product">
+                                                        <!-- End image -->
+                                                        <!-- Hover image -->
+                                                        <img class="hover blur-up lazyload" data-src="/Image/@item.Imagepath" src="/Image/@item.Imagepath">
+                                                        <!-- End hover image -->
+                                                        <!-- product label -->
+                                                        <div class="product-labels rectangular"><span class="lbl on-sale">-@descount%</span> <span class="lbl pr-label1">new</span></div>
+                                                        <!-- End product label -->
+                                                    </a>
+                                                    <!-- end product image -->
+                                                    <!-- countdown start -->
+                                                    @*<div class="saleTime desktop" data-countdown="2022/03/01"></div>*@
+                                                    <!-- countdown end -->
+                                                    <!-- Start product button -->
+                                                    <div class="variants add">
+                                                        <button class="btn btn-addto-cart" type="button" onclick="AddCart(@item.Prodid)" tabindex="0">Add To Cart</button>
+
+                                                    </div>
+                                                   
+                                              
+                                                </div>
+                                                <!-- end product image -->
+                                                <!--start product details -->
+                                                <div class="product-details text-center">
+                                                    <!-- product name -->
+                                                    <div class="product-name">
+                                                        <a href="#">@item.Productname</a>
+                                                    </div>
+                                                    <!-- End product name -->
+                                                    <!-- product price -->
+                                                    <div class="product-price">
+                                                        <span class="old-price">$@item.Price</span>
+                                                        <span class="price">$@(string.Format("{0:N2}",Convert.ToDouble(item.Price)- Convert.ToDouble(item.Price)*(descount/100)))</span>
+                                                    </div>
+                                                    <!-- End product price -->
+
+                                                    <div class="product-review">
+                                                        <i class="font-13 fa fa-star"></i>
+                                                        <i class="font-13 fa fa-star"></i>
+                                                        <i class="font-13 fa fa-star"></i>
+                                                        <i class="font-13 fa fa-star-o"></i>
+                                                        <i class="font-13 fa fa-star-o"></i>
+                                                    </div>
+
+                                                    <!-- End Variant -->
+                                                </div>
+                                                <!-- End product details -->
+                                            </div>
+
+                                        }
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Logo Slider-->
+        <div class="section logo-section">
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="section-header text-center">
+                            <h2 class="h2">Store</h2>
+                            <p>We have branches of international companies in various categories and products</p>
+                        </div>
+                        <div class="logo-bar">
+                            <div class="logo-bar__item">
+                                <img src="/HomePanel/assets/images/logo/brandlogo1.png" alt="" title="" />
+                            </div>
+                            <div class="logo-bar__item">
+                                <img src="/HomePanel/assets/images/logo/brandlogo2.png" alt="" title="" />
+                            </div>
+                            <div class="logo-bar__item">
+                                <img src="/HomePanel/assets/images/logo/brandlogo3.png" alt="" title="" />
+                            </div>
+                            <div class="logo-bar__item">
+                                <img src="/HomePanel/assets/images/logo/brandlogo4.png" alt="" title="" />
+                            </div>
+                            <div class="logo-bar__item">
+                                <img src="/HomePanel/assets/images/logo/brandlogo5.png" alt="" title="" />
+                            </div>
+                            <div class="logo-bar__item">
+                                <img src="/HomePanel/assets/images/logo/brandlogo6.png" alt="" title="" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--End Logo Slider-->
+        <!--Featured Product-->
+        <div class="product-rows section">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="section-header text-center">
+                            <h2 class="h2">Featured collection</h2>
+                            <p>Our most popular products based on sales</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid-products">
+                    <div class="row">
+
+                        @foreach (var item in Model.Item5)
+                        {
+
+
+                            <div class="col-6 col-sm-6 col-md-4 col-lg-4 item grid-view-item style2">
+                                <div class="grid-view_image">
+                                    <!-- start product image -->
+                                    <a href="#" class="grid-view-item__link">
+                                        <!-- image -->
+                                        <img class="grid-view-item__image primary blur-up lazyload" data-src="/Image/@item.Imagepath" src="/Image/@item.Imagepath" alt="image" title="product">
+                                        <!-- End image -->
+                                        <!-- Hover image -->
+                                        <img class="grid-view-item__image hover blur-up lazyload" data-src="/Image/@item.Imagepath" src="/Image/@item.Imagepath" alt="image" title="product">
+                                        <!-- End hover image -->
+                                        <!-- product label -->
+                                        <div class="product-labels rectangular"><span class="lbl on-sale">-@descount%</span> <span class="lbl pr-label1">new</span></div>
+                                        <!-- End product label -->
+                                    </a>
+                                    <!-- end product image -->
+                                    <!--start product details -->
+                                    <div class="product-details hoverDetails text-center mobile">
+                                        <!-- product name -->
+                                        <div class="product-name">
+                                            <a href="#">@item.Productname</a>
+                                        </div>
+                                        <!-- End product name -->
+                                        <!-- product price -->
+                                        <div class="product-price">
+                                            <span class="old-price">$@item.Price</span>
+                                            <span class="price">$@(string.Format("{0:N2}",Convert.ToDouble(item.Price)- Convert.ToDouble(item.Price)*(descount/100)))</span>
+                                        </div>
+                                        <!-- End product price -->
+                                        <!-- Start product button -->
+                                        @*<form class="variants add" asp-action="Cart" asp-controller="Home">
+                                            <input type="hidden" name="id" asp-for="@item.Prodid">*@
+                                        <button class="btn btn-addto-cart" type="submit" tabindex="0" onclick="AddCart(@item.Prodid)">Add To Cart</button>
+                                        @* </form>*@
+                                        <!-- product button -->
+                                   
+                                        <!-- end product button -->
+                                    </div>
+                                    <!-- Variant -->
+                                    <!-- End Variant -->
+                                    <!-- End product details -->
+                                </div>
+                            </div>
+
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--End Featured Product-->
+      
+        <!--Store Feature-->
+        <div class="store-feature section">
+            <div class="container">
+                <h2 class="text-center bold">Services</h2>
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                        <ul class="display-table store-info">
+                            @foreach (var item in Model.Item7)
+                            {
+                                <li class="display-table-cell">
+                                    <i class="icon anm anm-truck-l"></i>
+                                    <span class="sub-text">@item.Content</span>
+                                </li>
+
+                            }
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--End Store Feature-->
+    </div>
+    <!--End Body Content-->
+    <!--Scoll Top-->
+    <span id="site-scroll"><i class="icon anm anm-angle-up-r"></i></span>
+    <!--End Scoll Top-->
+    <!--Quick View popup-->
+   
+</div>
+
+<!--End Quick View popup-->
+
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- MDB -->
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.js"></script>
+
+<script>
+
+
+
+
+
+
+
+
+
+    function AddCart(prodid) {
+
+        let id = prodid;
+        console.log(id);
+        $.ajax({
+            url: "/Home/AddCart",
+            type: "POST",
+            data: { Productid: id },
+            success: function (data) {
+
+                if (data == 0) {
+                    Swal.fire({
+
+                        text: "You must be logged in to be able to add this item",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes,go Login'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = "/LoginRegisteration/Login";
+                        }
+                    })
+
+                }
+                else {
+                    console.log(data);
+                    Swal.fire(
+                        'Added successfully!',
+                        'You clicked the button!',
+                        'success'
+                    )
+
+                }
+
+
+
+            }
+        })
+    }
+</script>
+

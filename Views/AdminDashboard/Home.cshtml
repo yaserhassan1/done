@@ -1,0 +1,83 @@
+﻿@{
+    ViewData["Title"] = "Home";
+    Layout = "~/Views/Shared/_LayoutAdminDashboard.cshtml";
+}
+
+<h1>Home</h1>
+
+
+
+<div class="container">
+    <h4 class="display-4">Students Score Details By Doughnut Chart</h4>
+    <div class="row">
+        <div class="card">
+            <div class="chart">
+               <canvas id="myChart"  width="400" height="400"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+
+
+<script>
+
+const ctx = document.getElementById('myChart').getContext('2d');
+const myChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+        labels: ['Male','Female'],
+        datasets: [{
+            label: 'Gender Charts',
+            data: [220,340],
+            backgroundColor: [
+                 'rgb(255, 99, 132)',
+                 'rgb(54, 162, 235)',
+            ],
+           
+            borderWidth: 4
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+    // <block:setup:1>
+    const data = {
+        labels: [
+            '22',
+            '23',
+            '28'
+        ],
+        datasets: [{
+            label: 'My First Dataset',
+            data: [100, 50, 100],
+            backgroundColor: [
+               'rgb(255, 99, 132)',
+               'rgb(54, 162, 235)',
+            ],
+            hoverOffset: 4
+        }]
+    };
+    // </block:setup>
+
+    // <block:config:0>
+    const config = {
+        type: 'pie',
+        data: data,
+    };
+    // </block:config>
+
+    module.exports = {
+        actions: [],
+        config: config,
+    };
+</script>
